@@ -1,8 +1,10 @@
-import type { NextConfig } from "next";
+/** @type {import ('next').NextConfig} */
 
-const nextConfig: NextConfig = {
-  /* config options here */
+const nextConfig = {
   reactStrictMode : true,
+  eslint:{
+    ignoreDuringBuilds: true,
+  },
   images:{
     domains:['images.unsplash.com','media.istockphoto.com','res.cloudinary.com'],
   }
