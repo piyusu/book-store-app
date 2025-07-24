@@ -34,9 +34,9 @@ import { BookDetails } from "@/lib/types/type";
 
 const page = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [SelectedCondition, setSelectedCondition] = useState<String[]>([]);
-  const [SelectedType, setSelectedType] = useState<String[]>([]);
-  const [SelectedCategory, setSelectedCategory] = useState<String[]>([]);
+  const [SelectedCondition, setSelectedCondition] = useState<string[]>([]);
+  const [SelectedType, setSelectedType] = useState<string[]>([]);
+  const [SelectedCategory, setSelectedCategory] = useState<string[]>([]);
   const [sortOption, setSortOption] = useState("newest");
   const bookPerpage = 6;
   const {data:apiResponse={}, isLoading} = useGetProductsQuery({})
