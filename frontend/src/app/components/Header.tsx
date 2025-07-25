@@ -153,7 +153,7 @@ function Header() {
           {
             icon: <ShoppingCart className="h-5 w-5 cursor-pointer" />,
             lable: "Shopping Cart",
-            onclick: () => handleProtectionNAvigation("/account/cart"),
+            onclick: () => handleProtectionNAvigation("/checkout/cart"),
           },
           {
             icon: <Heart className="h-5 w-5 cursor-pointer" />,

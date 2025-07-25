@@ -1,7 +1,6 @@
 {
-  "/checkout/cart/page": "app/checkout/cart/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
   "/books/[id]/page": "app/books/[id]/page.js",
-  "/account/selling-products/page": "app/account/selling-products/page.js",
-  "/account/orders/page": "app/account/orders/page.js",
-  "/account/profile/page": "app/account/profile/page.js"
+  "/page": "app/page.js",
+  "/checkout/cart/page": "app/checkout/cart/page.js"
 }
