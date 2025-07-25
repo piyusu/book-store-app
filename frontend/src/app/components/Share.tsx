@@ -1,28 +1,36 @@
-import { Button } from "@/components/ui/button";
-import { Share2 } from "lucide-react";
+"use client";
 import React from "react";
-import { RWebShare } from "react-web-share";
+import { Button } from "@/components/ui/button"; // Your custom Button
+import { Share2 } from "lucide-react"; // Your icon
 
-interface RWebShareProps{
-    url: string;
-    title: string;
-    text: string;
+interface RWebShareProps {
+  url: string;
+  title: string;
+  text: string;
 }
 
-export const ShareButton :React.FC<RWebShareProps> =({url, title, text}) =>{
-    return(
-        <RWebShare
-        data={{
-            text: text,
-            url: url,
-            title: title,
-        }}
-        onClick={()=>{console.log("shared successfully Clicked")}}
-        >
-            <Button size='sm' variant='outline'>
-                <Share2 className="h-4 w-4 mr-2"/>
-                Share
-            </Button>
-        </RWebShare>
-    )
-}
+export const ShareButton: React.FC<RWebShareProps> = ({ url, title, text }) => {
+  const handleShare = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title,
+          text,
+          url,
+        });
+        console.log("Shared successfully");
+      } catch (error) {
+        console.error("Error sharing:", error);
+      }
+    } else {
+      console.error("Web Share API is not supported in your browser.");
+    }
+  };
+
+  return (
+    <Button size="sm" variant="outline" onClick={handleShare}>
+      <Share2 className="h-4 w-4 mr-2" />
+      Share
+    </Button>
+  );
+};

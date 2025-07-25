@@ -41,7 +41,7 @@ const page = () => {
       }
     },[apiResponse])
   
-    console.log("books", book);
+    // console.log("books", book);
 
   const handleAddToCart = async() => {
     if(book){
