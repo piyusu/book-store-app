@@ -21,8 +21,13 @@ dotenv_1.default.config();
 const port = process.env.PORT || 8088;
 const app = (0, express_1.default)();
 const corsOption = {
-    origin: process.env.FRONTEND_URL,
+    origin: [
+        "https://book-store-app-umber.vercel.app", // your frontend domain
+        "http://localhost:3000" // if using local frontend for development
+    ],
     credentials: true,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
 };
 app.use((0, cors_1.default)(corsOption));
 app.use(express_1.default.json());
