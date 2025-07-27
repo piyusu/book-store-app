@@ -16,20 +16,29 @@ exports.authenticatedUser = void 0;
 const responseHandler_1 = require("../utils/responseHandler");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const authenticatedUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const token = req.cookies.access_token;
+    var _a;
+    let token;
+    // Prefer Authorization header first
+    if (req.headers.authorization &&
+        req.headers.authorization.startsWith("Bearer")) {
+        token = req.headers.authorization.split(" ")[1];
+    }
+    else if ((_a = req.cookies) === null || _a === void 0 ? void 0 : _a.access_token) {
+        // Fallback: use cookie if available
+        token = req.cookies.access_token;
+    }
     if (!token) {
         return (0, responseHandler_1.response)(res, 401, "Unauthorized, Please login to access this resource");
     }
     try {
-        const decode = jsonwebtoken_1.default.verify(token, process.env.JWT_SECRET);
-        if (!decode) {
+        const decoded = jsonwebtoken_1.default.verify(token, process.env.JWT_SECRET);
+        if (!decoded) {
             return (0, responseHandler_1.response)(res, 401, "Unauthorized, User not found or token expired");
         }
-        req.id = decode.userId;
-        // console.log("User ID from token:", req.id);
+        req.id = decoded.userId;
         next();
     }
-    catch (error) {
+    catch (err) {
         return (0, responseHandler_1.response)(res, 401, "Unauthorized, token is not valid or expired");
     }
 });
