@@ -172,7 +172,7 @@ function Header() {
     {
       icon: <FileTerminal className="h-5 w-5" />,
       lable: "Terms & Conditions",
-      href: "/terms-and-conditions",
+      href: "/terms-of-use",
     },
     {
       icon: <BookLock className="h-5 w-5" />,
