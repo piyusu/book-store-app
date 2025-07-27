@@ -59,17 +59,17 @@ export const removeFromCart = async (req: Request, res: Response) => {
 }
 
 export const getCartByUser = async (req: Request, res: Response) => {
-    try {
-        const userId = req.params.userId;
-        let cart = await CartItmes.findOne({user: userId}).populate("items.product")
-        // console.log("cart", cart)
-        if(!cart) {
-            return response(res, 404, "Cart is Empty", {items:[]});
-        }
-        await cart.save();
-        return response(res, 200, "User Cart get successfully",cart);
-    } catch (error) {
-        console.error("Error adding to cart:", error);
-        return response(res, 500, "Internal server error, Plesase try again later");
+  try {
+    const userId = req.id; // ✅ From middleware
+    const cart = await CartItmes.findOne({ user: userId }).populate("items.product");
+
+    if (!cart) {
+      return response(res, 404, "Cart is empty", { items: [] });
     }
-}
+
+    return response(res, 200, "User cart fetched successfully", cart);
+  } catch (error) {
+    console.error("Error fetching cart:", error);
+    return response(res, 500, "Internal server error, please try again later");
+  }
+};

@@ -57,7 +57,7 @@ const page = () => {
   const [showAddressDialog, setShowAddressDialog] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const { data: cartData, isLoading: isCartLoading } = useGetCartQuery(
-    user?._id
+    { skip: !user?._id }
   );
   const [removeCartMutation] = useRemoveFromCartMutation();
   const [addToWishlistMutation] = useAddToWishlistMutation();
@@ -145,11 +145,14 @@ const page = () => {
     0
   );
   const totalDiscount = totalOriginalAmount - totalAmount;
-  const shippingCharge = cart.items.map((item) =>
-    item.product.shippingCharge.toLowerCase() === "free"
-      ? 0
-      : parseFloat(item.product.shippingCharge) || 0
-  );
+  const shippingCharge = cart.items.map((item) => {
+  const charge = item.product.shippingCharge;
+  if (typeof charge === "string" && charge.toLowerCase() === "free") {
+    return 0;
+  }
+  return parseFloat(charge) || 0;
+});
+
   const maxShippingCharge = Math.max(...shippingCharge, 0);
   const finalAmount = totalAmount + maxShippingCharge;
 
