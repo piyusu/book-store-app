@@ -76,13 +76,15 @@ export const login = async (req: Request, res: Response) => {
         }
         
         const accessToken = generateToken(user);
+        console.log("accessTokne", accessToken)
         res.cookie('access_token', accessToken,{
             httpOnly:true,
             sameSite:"none",
             secure: true,
             maxAge: 24 * 60 * 60 * 1000
         })
-
+        console.log("res.cookie", res.cookie);
+        
         return response(res, 200, "User logged in successfully", {user:{name:user.name, email:user.email}});
     } catch (error) {
         console.log(error);

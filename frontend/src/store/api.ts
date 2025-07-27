@@ -47,7 +47,17 @@ const API_URLS = {
 };
 
 export const api = createApi({
-  baseQuery: fetchBaseQuery({ baseUrl: BASE_URL, credentials: "include" }),
+  baseQuery: fetchBaseQuery({
+  baseUrl: BASE_URL,
+  prepareHeaders: (headers, { getState }) => {
+    const token = typeof window !== "undefined" && localStorage.getItem("token");
+    if (token) {
+      headers.set("Authorization", `Bearer ${token}`);
+    }
+    return headers;
+  },
+}),
+
   tagTypes: ["User", "Product", "Cart", "Order", "Wishlist", "Address"],
   endpoints: (builder) => ({
     //user Endpoints

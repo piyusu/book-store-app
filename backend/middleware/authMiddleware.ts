@@ -30,6 +30,7 @@ const authenticatedUser = async (req: Request, res: Response, next: NextFunction
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as jwt.JwtPayload;
+    
 
     if (!decoded) {
       return response(res, 401, "Unauthorized, User not found or token expired");
